@@ -1,9 +1,12 @@
 package io.github.guilhermemelo01.devbot.main;
 
 import io.github.guilhermemelo01.devbot.commands.Ping;
+import io.github.guilhermemelo01.devbot.commands.Prefix;
+import io.github.guilhermemelo01.devbot.database.CRUD;
 import io.github.guilhermemelo01.devbot.database.Config;
 import io.github.guilhermemelo01.devbot.events.MemberJoin;
 import io.github.guilhermemelo01.devbot.events.MemberLeave;
+import jdk.dynalink.linker.LinkerServices;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Guild;
@@ -19,25 +22,32 @@ import java.util.Map;
 public class BotDiscord {
 
     public static JDA jda;
-    public static Map<Long, Character> prefixMap = new HashMap<>();
-    public static Map<Long, Long> joinChannelMap = new HashMap<>();
-    public static Map<Long, Long> leaveChannelMap = new HashMap<>();
+
+    static {
+        try {
+            jda = JDABuilder.create("OTk3NjIyMDk5MDM0MjQzMTIy.G0fXnR.v3JYNmiZq2h4F8jQP5LI65qVObfls_HGYhmrbs",
+                    EnumSet.allOf(GatewayIntent.class)).build();
+        } catch (LoginException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Map<String, Character> prefixMap = new HashMap<>();
 
     public static void main(String[] args) throws LoginException, InterruptedException, SQLException, IOException {
 
         Config.createFilesAndTable();
 
-        JDA jda = JDABuilder.create("OTk3NjIyMDk5MDM0MjQzMTIy.GwjUba.Fi6fhhE2NMwRwnOwv0pOUT4_IGJ6gaxvp_0cC8",
-                EnumSet.allOf(GatewayIntent.class)).build();
-
         jda.addEventListener(new Ping());
         jda.addEventListener(new MemberJoin());
         jda.addEventListener(new MemberLeave());
+        jda.addEventListener(new Prefix());
+        for (Guild guild : jda.awaitReady().getGuilds()){
+            CRUD.insert(guild.getId(), '$');
+        }
 
         for (Guild guild : jda.awaitReady().getGuilds()){
-            prefixMap.put(guild.getIdLong(), '$');
-            joinChannelMap.put(guild.getIdLong(), null);
-            leaveChannelMap.put(guild.getIdLong(), null);
+            CRUD.select(guild.getId());
         }
 
     }

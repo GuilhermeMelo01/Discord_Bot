@@ -29,6 +29,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="fc993536-eb36-4f24-85d4-007e3e9c4a15">
+      <console name="Connection" type="STANDARD" schema="main" session="Main" />
       <console name="Connection 1" type="STANDARD" schema="" session="Main" />
     </connection>
   </component>
@@ -37,6 +38,9 @@
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="fc993536-eb36-4f24-85d4-007e3e9c4a15" />
+  </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="fc993536-eb36-4f24-85d4-007e3e9c4a15" dataset="main.tb_guild" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
