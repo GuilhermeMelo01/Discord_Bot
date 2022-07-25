@@ -25,7 +25,7 @@ public class BotDiscord {
 
     static {
         try {
-            jda = JDABuilder.create("OTk3NjIyMDk5MDM0MjQzMTIy.GY5hmv.G9UjUIa0Ud_thaWwcix6lOMqh4G3U5-TjyZIaY",
+            jda = JDABuilder.create("OTk3NjIyMDk5MDM0MjQzMTIy.Gou-y3.YU9iITNhk4o-bHEznJxOayuyVWBOQNNQGELW4c",
                     EnumSet.allOf(GatewayIntent.class)).build();
         } catch (LoginException e) {
             e.printStackTrace();
@@ -34,7 +34,7 @@ public class BotDiscord {
 
     public static Map<String, Character> prefixMap = new HashMap<>();
 
-    public static void main(String[] args) throws LoginException, InterruptedException, SQLException, IOException {
+    public static void main(String[] args) throws InterruptedException, SQLException, IOException {
 
         Config.createFilesAndTable();
 
