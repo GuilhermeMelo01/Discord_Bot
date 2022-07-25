@@ -2,12 +2,14 @@ package io.github.guilhermemelo01.devbot.commands;
 
 import io.github.guilhermemelo01.devbot.database.CRUD;
 import io.github.guilhermemelo01.devbot.main.BotDiscord;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class Prefix extends ListenerAdapter {
 
@@ -21,7 +23,13 @@ public class Prefix extends ListenerAdapter {
                     event.getGuild().getId())).queue();
         }
 
-        if(args[0].equalsIgnoreCase(BotDiscord.prefixMap.get(event.getGuild().getId()) + "setprefix")){
+        if (args[0].equalsIgnoreCase(BotDiscord.prefixMap.get(event.getGuild().getId()) + "setprefix")) {
+
+            if (!Objects.requireNonNull(event.getMember()).hasPermission(Permission.MANAGE_SERVER)) {
+                channel.sendMessage(" Você não tem essa permissão!").queue();
+                return;
+            }
+
             BotDiscord.prefixMap.replace(event.getGuild().getId(), args[1].charAt(0));
             try {
                 CRUD.update(event.getGuild().getId(), args[1].charAt(0));

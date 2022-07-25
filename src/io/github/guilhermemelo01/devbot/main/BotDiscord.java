@@ -25,7 +25,7 @@ public class BotDiscord {
 
     static {
         try {
-            jda = JDABuilder.create("OTk3NjIyMDk5MDM0MjQzMTIy.Gou-y3.YU9iITNhk4o-bHEznJxOayuyVWBOQNNQGELW4c",
+            jda = JDABuilder.create("OTk3NjIyMDk5MDM0MjQzMTIy.GawKzX.KZG2az5ULM0146IsbbDbALyFbrSkLvcFNA7508",
                     EnumSet.allOf(GatewayIntent.class)).build();
         } catch (LoginException e) {
             e.printStackTrace();
